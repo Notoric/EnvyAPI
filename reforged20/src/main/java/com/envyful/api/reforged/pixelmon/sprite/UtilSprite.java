@@ -127,7 +127,7 @@ public class UtilSprite {
                                 pokemon.getGender() == Gender.NONE ? config.getNoneFormat() :
                                         config.getFemaleFormat())
                         .replace("%breedable%", pokemon.hasFlag(Flags.UNBREEDABLE) ?
-                                config.getUnbreedableTrueFormat() : config.getUnbreedableFalseFormat())
+                                config.getUnbreedableFalseFormat() : config.getUnbreedableTrueFormat())
                         .replace("%nature%", config.getNatureFormat()
                                 .replace("%nature_name%",
                                         pokemon.getMintNature() != null ?
