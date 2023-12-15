@@ -9,6 +9,7 @@ import com.google.common.collect.Lists;
 import com.pixelmonmod.api.Flags;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.PokemonBase;
+import com.pixelmonmod.pixelmon.api.pokemon.ribbon.Ribbon;
 import com.pixelmonmod.pixelmon.api.pokemon.species.Species;
 import com.pixelmonmod.pixelmon.api.pokemon.species.Stats;
 import com.pixelmonmod.pixelmon.api.pokemon.species.gender.Gender;
@@ -116,11 +117,21 @@ public class UtilSprite {
         float evSAtk = pokemon.getEVs().getStat(BattleStatsType.SPECIAL_ATTACK);
         float evSDef = pokemon.getEVs().getStat(BattleStatsType.SPECIAL_DEFENSE);
         ExtraStats extraStats = pokemon.getExtraStats();
-        String rivenShader = "&7NONE";
 
-        try {
-            rivenShader = pokemon.getRibbons().get(0).getType().getKey();
-        } catch (Exception ignore) {}
+        String rivenShader = "&cNone";
+
+        for (Ribbon ribbon : pokemon.getRibbons()) {
+            if (ribbon.getType().getKey() == "royal") {
+                rivenShader = "&6Cel Shaded";
+                break;
+            } else if (ribbon.getType().getKey() == "special") {
+                rivenShader = "&6Black & White";
+                break;
+            } else if (ribbon.getType().getKey() == "wishing") {
+                rivenShader = "&6Rainbow";
+                break;
+            }
+        }
 
         line = line
                 .replace("%nickname%", pokemon.getDisplayName())
@@ -166,7 +177,7 @@ public class UtilSprite {
                         .replace("%shiny%", pokemon.isShiny() ? config.getShinyTrueFormat() : config.getShinyFalseFormat())
                         .replace("%form%", pokemon.getForm().getLocalizedName())
                         .replace("%size%", pokemon.getGrowth().getLocalizedName())
-                        .replace("%shader%," rivenShader)
+                        .replace("%shader%", rivenShader)
                         .replace("%friendship%", pokemon.getFriendship() + "");
 
         if (extraStats instanceof MewStats) {
