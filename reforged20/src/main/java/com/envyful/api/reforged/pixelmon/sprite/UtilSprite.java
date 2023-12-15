@@ -116,6 +116,11 @@ public class UtilSprite {
         float evSAtk = pokemon.getEVs().getStat(BattleStatsType.SPECIAL_ATTACK);
         float evSDef = pokemon.getEVs().getStat(BattleStatsType.SPECIAL_DEFENSE);
         ExtraStats extraStats = pokemon.getExtraStats();
+        String rivenShader = "&7NONE";
+
+        try {
+            rivenShader = pokemon.getRibbons().get(0).getType().getKey();
+        } catch (Exception ignore) {}
 
         line = line
                 .replace("%nickname%", pokemon.getDisplayName())
@@ -161,6 +166,7 @@ public class UtilSprite {
                         .replace("%shiny%", pokemon.isShiny() ? config.getShinyTrueFormat() : config.getShinyFalseFormat())
                         .replace("%form%", pokemon.getForm().getLocalizedName())
                         .replace("%size%", pokemon.getGrowth().getLocalizedName())
+                        .replace("%shader%," rivenShader)
                         .replace("%friendship%", pokemon.getFriendship() + "");
 
         if (extraStats instanceof MewStats) {
